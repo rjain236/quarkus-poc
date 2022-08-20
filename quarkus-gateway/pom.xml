@@ -8,7 +8,7 @@
         <artifactId>quarkus-poc</artifactId>
         <version>${revision}</version>
     </parent>
-    <artifactId>quarkus-rest</artifactId>
+    <artifactId>quarkus-gateway</artifactId>
 
     <properties>
         <maven.compiler.source>14</maven.compiler.source>

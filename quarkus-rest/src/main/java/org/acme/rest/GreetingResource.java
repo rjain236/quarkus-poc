@@ -9,12 +9,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("/hello")
-@RegisterRestClient(baseUri = "stork://hello-service/hello")
-public class GreetingResource {
+public class GreetingResource implements GreetingRestClient {
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return GreetingUtil.hello();
-    }
+  @GET
+  @Produces(MediaType.TEXT_PLAIN)
+  public String get() {
+    return GreetingUtil.hello();
+  }
 }

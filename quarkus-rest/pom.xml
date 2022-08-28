@@ -22,8 +22,17 @@
             <version>${revision}</version>
         </dependency>
         <dependency>
+            <groupId>com.github.rjain236</groupId>
+            <artifactId>quarkus-rest-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-smallrye-stork</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -40,6 +49,10 @@
         <dependency>
             <groupId>io.smallrye.stork</groupId>
             <artifactId>stork-service-discovery-consul</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.smallrye.reactive</groupId>
+            <artifactId>smallrye-mutiny-vertx-consul-client</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

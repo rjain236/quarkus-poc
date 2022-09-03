@@ -6,8 +6,7 @@
     <parent>
         <groupId>com.github.rjain236</groupId>
         <artifactId>quarkus-poc</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <version>${revision}</version>
     </parent>
     <artifactId>quarkus-rest-api</artifactId>
 
@@ -20,12 +19,15 @@
         <dependency>
             <groupId>com.github.rjain236</groupId>
             <artifactId>quarkus-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-grpc</artifactId>
+        </dependency>
     </dependencies>
 </project>

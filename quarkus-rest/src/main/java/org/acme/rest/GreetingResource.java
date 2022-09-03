@@ -1,7 +1,7 @@
 package org.acme.rest;
 
 import org.acme.common.GreetingUtil;
-import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
+import org.acme.rest.api.GreetingRestClient;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

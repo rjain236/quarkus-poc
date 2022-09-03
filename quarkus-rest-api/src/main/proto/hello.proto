@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "org.acme.rest";
+option java_package = "org.acme.rest.api";
 option java_outer_classname = "HelloGrpcProto";
 
 package hello;

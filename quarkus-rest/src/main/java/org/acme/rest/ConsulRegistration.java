@@ -35,5 +35,12 @@ public class ConsulRegistration {
             .setAddress(myHost)
             .setName("my-rest-service")
             .setId("rest-service"));
+
+    client.registerServiceAndAwait(
+        new ServiceOptions()
+            .setPort(9000)
+            .setAddress(myHost)
+            .setName("my-grpc-service")
+            .setId("grpc-service"));
   }
 }

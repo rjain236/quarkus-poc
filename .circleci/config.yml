@@ -2,25 +2,120 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
-jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+references:
+  working_directory: &working_directory ~/quarkus-poc
+
+  container_config: &container_config
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+      - image: cimg/openjdk:14.0
+    working_directory: *working_directory
+
+  release_container_config: &release_container_config
+    docker:
+      - image: cimg/base:2021.12
+    working_directory: *working_directory
+
+  setup_build_docker: &setup_build_docker
+    setup_remote_docker:
+      docker_layer_caching: true
+
+  restore_mvn_cache: &restore_mvn_cache
+    restore_cache:
+      key: mvn-cache
+
+  save_mvn_cache: &save_mvn_cache
+    save_cache:
+      key: mvn-cache
+      paths:
+        - "~/.m2"
+
+  set_env: &set_env
+    run:
+      name: Set Env
+      command: |
+        set -x
+        make set_env
+
+  publish_images_local: &publish_images_local
+    run:
+      name: Build images
+      command: |
+        set -x
+        make build
+
+  publish_images: &publish_images
+    run:
+      name: Publish images
+      command: |
+        set -x
+        make publish
+
+  compile_and_test: &compile_and_test
+    run:
+      name: Compiling and running tests
+      command: : |
+        set -x
+        make compile
+
+  save_k8s_dir: &save_k8s_dir
+    persist_to_workspace:
+      root: .
+      paths:
+        - kubernetes
+        - Makefile
+
+  save_working_directory: &save_working_directory
+    persist_to_workspace:
+      root: *working_directory
+      paths:
+        - .
+
+  mount_workspace: &mount_workspace
+    attach_workspace:
+      at: *working_directory
+
+  staging_only: &staging_only
+    context:
+      - staging
+    filters:
+      branches:
+        only:
+          - main
+
+
+jobs:
+  build_and_publish:
+    <<: *container_config
+    resource_class: medium+
+    parallelism: 1
+    steps:
+      - *mount_workspace
+      - *restore_mvn_cache
+      - *setup_build_docker
+      - *set_env
+      - *publish_images_local
+      - *publish_images
+      - *save_k8s_dir
+
+  compile:
+    <<: *container_config
+    resource_class: medium+
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+      - *restore_mvn_cache
+      - *compile_and_test
+      - *save_mvn_cache
+      - *save_working_directory
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  staging:
     jobs:
-      - say-hello
+      - compile:
+          <<: *staging_only
+          name: "staging_compile"
+      - build_and_publish:
+          <<: *staging_only
+          name: "build_and_publish"
+          requires:
+            - compile
+

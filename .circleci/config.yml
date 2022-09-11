@@ -110,12 +110,12 @@ jobs:
 workflows:
   staging:
     jobs:
-      - compile:
-          <<: *staging_only
-          name: "staging_compile"
       - build_and_publish:
           <<: *staging_only
           name: "build_and_publish"
           requires:
             - compile
+      - compile:
+          <<: *staging_only
+          name: "compile"
 

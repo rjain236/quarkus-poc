@@ -10,7 +10,7 @@ public class HelloGrpcService implements HelloGrpc {
   @Override
   public Uni<HelloReply> sayHello(HelloRequest request) {
     return Uni.createFrom()
-        .item("Hello" + request.getName() + request.getAdditionalInfo() + "!")
+        .item("Hello next version" + request.getName() + request.getAdditionalInfo() + "!")
         .map(msg -> HelloReply.newBuilder().setMessage(msg).build());
   }
 

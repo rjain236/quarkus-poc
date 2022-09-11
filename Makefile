@@ -23,7 +23,7 @@ publish:
 	@./$(SCRIPT_PATH)/publish_images.sh
 
 .PHONY: compile
-publish:
+compile:
 	@./$(SCRIPT_PATH)/compile_and_test.sh
 
 

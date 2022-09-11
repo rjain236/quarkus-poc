@@ -53,7 +53,7 @@ references:
   compile_and_test: &compile_and_test
     run:
       name: Compiling and running tests
-      command: : |
+      command: |
         set -x
         make compile
 

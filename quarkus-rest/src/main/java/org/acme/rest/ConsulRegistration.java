@@ -16,8 +16,8 @@ public class ConsulRegistration {
   @ConfigProperty(name = "consul.host")
   String host;
 
-  @ConfigProperty(name = "consul.port")
-  int port;
+//  @ConfigProperty(name = "consul.port")
+  int port = 8500;
 
   @ConfigProperty(name = "quarkus.http.port")
   int myPort;

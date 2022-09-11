@@ -18,9 +18,6 @@ public class GatewayResource {
   @GrpcClient("hello")
   HelloGrpc grpcService;
 
-  @GrpcClient("helloconsul")
-  HelloGrpc grpcConsulService;
-
   @GET
   @Produces(MediaType.TEXT_PLAIN)
   public String callRest() {
@@ -37,12 +34,4 @@ public class GatewayResource {
         .transform(HelloReply::getMessage);
   }
 
-  @GET
-  @Path("/consul/{name}")
-  public Uni<String> helloConsul(String name) {
-    return grpcConsulService
-        .sayHello(HelloRequest.newBuilder().setName(name).build())
-        .onItem()
-        .transform(HelloReply::getMessage);
-  }
 }

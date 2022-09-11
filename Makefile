@@ -13,7 +13,6 @@ clean_env:
 .PHONY: set_env
 set_env: clean_env
 	@./$(SCRIPT_PATH)/set_env.sh
-	export $(shell sed 's/=.*//' $(SCRIPT_PATH)/envs)
 
 .PHONY: build
 build:

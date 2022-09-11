@@ -1,4 +1,4 @@
-SHORT_GIT_HASH=c8b2e39
+SHORT_GIT_HASH=2f5e5bd
 GIT_BRANCH_NAME=main
 SERVICES=quarkus-rest quarkus-gateway
 ENV=local

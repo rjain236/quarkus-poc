@@ -28,7 +28,7 @@ compile:
 	@./$(SCRIPT_PATH)/compile_and_test.sh
 
 .PHONY: all
-all: set_env compile build publish
+all: compile build publish
 
 
 

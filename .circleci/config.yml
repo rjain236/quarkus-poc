@@ -113,6 +113,8 @@ workflows:
       - build_and_publish:
           <<: *staging_only
           name: "build_and_publish"
+          context:
+            - DOCKER
           requires:
             - compile
       - compile:

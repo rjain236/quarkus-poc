@@ -17,7 +17,7 @@ function _publish_image_for_service() {
 }
 
 function _publish_images() {
-  docker login rjain236
+  docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
   for service in $services; do
     echo "start publish for $service"
     _publish_image_for_service "$service" &

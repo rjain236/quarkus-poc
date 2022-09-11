@@ -17,6 +17,7 @@ function _publish_image_for_service() {
 }
 
 function _publish_images() {
+  docker login
   for service in $services; do
     echo "start publish for $service"
     _publish_image_for_service "$service" &
